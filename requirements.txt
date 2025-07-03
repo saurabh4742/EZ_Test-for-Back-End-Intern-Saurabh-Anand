@@ -3,12 +3,11 @@ uvicorn[standard]        # ASGI server with reload, logging, etc.
 
 # Database
 sqlalchemy>=2.0          # ORM
-asyncpg                  # Async PostgreSQL driver (replace with aiosqlite if using SQLite)
+asyncpg>=0.29.0          # Async PostgreSQL driver (replace with aiosqlite if using SQLite)
 aiosqlite                # (optional) for SQLite during local development
 
 # Authentication & Security
 passlib[bcrypt]          # Password hashing
-python-jose[cryptography] # JWT encoding/decoding (if using jose instead of your own utils)
 cryptography             # Fernet encryption
 email-validator          # For email format validation
 python-dotenv            # For loading .env files
@@ -19,6 +18,10 @@ python-multipart         # For handling form-data (e.g., file uploads)
 # Email Sending
 aiosmtplib               # Async SMTP client to send emails securely
 
-# Utilities & Linting (optional)
+# Testing
+pytest
+pytest-asyncio
+httpx
+
+# Utilities
 pydantic                 # Already comes with FastAPI, but can be explicitly added
-asyncpg==0.29.0
