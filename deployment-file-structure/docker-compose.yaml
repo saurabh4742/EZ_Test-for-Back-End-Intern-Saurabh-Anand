@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: your_user
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql+asyncpg://your_user:your_password@db:5432/your_db
+      JWT_SECRET: your_secret
+      ENCRYPTION_KEY: your_fernet_key
+      EMAIL_SENDER: your_email@gmail.com
+      EMAIL_PASSWORD: your_email_password
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:

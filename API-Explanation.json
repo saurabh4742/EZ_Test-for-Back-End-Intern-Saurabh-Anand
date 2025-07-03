@@ -1,0 +1,90 @@
+{
+  "info": {
+    "_postman_id": "secure-file-sharing-api-collection",
+    "name": "Secure File Sharing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "access_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"yourpassword\",\n  \"role\": \"ops\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/auth/signup", "host": [ "{{base_url}}" ], "path": [ "auth", "signup" ] }
+      }
+    },
+    {
+      "name": "Verify Email",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/auth/verify-email/{{token}}", "host": [ "{{base_url}}" ], "path": [ "auth", "verify-email", "{{token}}" ] }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"yourpassword\",\n  \"role\": \"ops\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/auth/login", "host": [ "{{base_url}}" ], "path": [ "auth", "login" ] }
+      }
+    },
+    {
+      "name": "File Upload (Ops Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "file", "type": "file", "src": "" }
+          ]
+        },
+        "url": { "raw": "{{base_url}}/ops/upload", "host": [ "{{base_url}}" ], "path": [ "ops", "upload" ] }
+      }
+    },
+    {
+      "name": "List Files (Client Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/client/files", "host": [ "{{base_url}}" ], "path": [ "client", "files" ] }
+      }
+    },
+    {
+      "name": "Generate Download Link (Client Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/client/download-file/{{file_id}}", "host": [ "{{base_url}}" ], "path": [ "client", "download-file", "{{file_id}}" ] }
+      }
+    },
+    {
+      "name": "Download File (Client Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": { "raw": "{{base_url}}/client/download/{{token}}", "host": [ "{{base_url}}" ], "path": [ "client", "download", "{{token}}" ] }
+      }
+    }
+  ]
+}
